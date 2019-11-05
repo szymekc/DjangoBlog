@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test site</title>
+    </head>
+    <body>
+        {% for post in posts %}
+            <div>
+                <h2>{{ post.title }}</h2>
+                <p>{{ post.date }}</p>
+                <p>{{ post.text|linebreaksbr }}</p>
+                <p style="color: gray;">Author: {{ post.author }}</p>
+            </div>
+        {% endfor %}    
+    </body>
+</html>
