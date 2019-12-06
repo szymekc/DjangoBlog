@@ -1,0 +1,16 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blog</title>
+        <link rel='stylesheet' type='text/css' href="{% static 'blog/css/layout.css'%}">
+        <link rel="shortcut icon" type="image/png" href="{% static 'blog/images/logo_asi.png' %}"/>
+        {% block head %}
+        {% endblock %}
+        
+    </head>
+    <body>
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>

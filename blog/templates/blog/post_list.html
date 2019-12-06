@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Test site</title>
-    </head>
-    <body>
+{% extends 'blog/layout.html'%}
+   
+	{% block head %}
+	{% endblock %}
+
+	{% block content %}
         {% for post in posts %}
             <div>
                 <h2>{{ post.title }}</h2>
@@ -12,5 +12,5 @@
                 <p style="color: gray;">Author: {{ post.author }}</p>
             </div>
         {% endfor %}    
-    </body>
-</html>
+   {% endblock %}
+
