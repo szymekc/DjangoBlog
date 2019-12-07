@@ -7,6 +7,20 @@ class PostManager(models.Manager):
     def createPost(self, author, title, text, date):
         post = self.create(author,title,text,date)
         return post
+        
+    def sort_by_date(self):
+        from django.db import connection
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                    SELECT * 
+                    FROM blog_post
+                    ORDER BY date DESC;
+                    """)
+            out = []
+            for row in cursor.fetchall():
+                post = self.model(id=row[0], author=row[1], title=row[2], text=row[3], date=row[4])
+                out.append(post)
+            return  out
 
 
 class Post(models.Model):
