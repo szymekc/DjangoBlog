@@ -1,0 +1,16 @@
+{% extends 'blog/layout.html'%}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit">
+</form>
+
+<form action="{% url 'blog:post_list' %}" method="get">
+        <input type="submit" value="Back">
+</form>
+{% endblock %}

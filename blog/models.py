@@ -5,9 +5,9 @@ from django.utils import timezone
 
 class PostManager(models.Manager):
     def createPost(self, author, title, text, date):
-        post = self.create(author,title,text,date)
+        post = self.create(author, title, text, date)
         return post
-        
+
     def sort_by_date(self):
         from django.db import connection
         with connection.cursor() as cursor:
@@ -18,13 +18,15 @@ class PostManager(models.Manager):
                     """)
             out = []
             for row in cursor.fetchall():
-                post = self.model(id=row[0], author=row[1], title=row[2], text=row[3], date=row[4])
+                post = self.model(
+                    id=row[0], author=row[1], title=row[2], text=row[3], date=row[4])
                 out.append(post)
-            return  out
+            return out
 
 
 class Post(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     text = models.TextField()
     date = models.DateTimeField(default=timezone.now)
@@ -32,3 +34,18 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class CommentManager(models.Manager):
+    def createComment(self, author, text, date):
+        comment = self.create(author, text, date)
+        return comment
+
+
+class Comment(models.Model):
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    text = models.TextField()
+    date = models.DateTimeField(default=timezone.now)
+    objects = PostManager()

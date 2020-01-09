@@ -1,20 +1,19 @@
 {% extends 'blog/layout.html'%}
-   
-	{% block head %}
-	{% endblock %}
 
-	{% block content %}
-        <form action="{% url 'blog:add_post' %}" method="get">
-            <input type="submit" value="Add post">
-        </form>
+{% block head %}
+{% endblock %}
 
-        {% for post in posts %}
-            <div>
-                <h2>{{ post.title }}</h2>
-                <p>{{ post.date }}</p>
-                <p>{{ post.text|linebreaksbr }}</p>
-                <p style="color: darkgreen;">Author: {{ post.author }}</p>
-            </div>
-        {% endfor %}    
-   {% endblock %}
+{% block content %}
+<form action="{% url 'blog:add_post' %}" method="get">
+    <input type="submit" value="Add post">
+</form>
 
+{% for post in posts %}
+<div>
+    <h2><a href="{% url 'blog:post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+    <p>{{ post.date }}</p>
+    <p>{{ post.text|linebreaksbr }}</p>
+    <p style="color: darkgreen;">Author: {{ post.author }}</p>
+</div>
+{% endfor %}
+{% endblock %}
